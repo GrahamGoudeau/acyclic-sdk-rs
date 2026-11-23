@@ -1,0 +1,40 @@
+[package]
+name = "acyclic-sdk"
+version = "0.1.0"
+edition = "2021"
+# MSRV: Rust 1.75. The core uses std only; optional features pull in ureq / rsa.
+rust-version = "1.75"
+description = "EHR agent SDK: SMART Backend Services auth, a FHIR R4 client, 13 patient-scoped tools, an agent loop and PHI-safe telemetry. Zero-dependency core."
+license = "Apache-2.0"
+repository = "https://github.com/GrahamGoudeau/acyclic-sdk-rs"
+readme = "README.md"
+keywords = ["fhir", "ehr", "smart-on-fhir", "llm", "agent"]
+categories = ["api-bindings", "web-programming::http-client"]
+exclude = ["spec/fixtures/**/.git"]
+
+[lib]
+name = "acyclic_sdk"
+
+[features]
+default = []
+# HTTP transport over ureq 2.x with rustls.
+ureq = ["dep:ureq"]
+# RS384 signing of SMART client assertions with the RustCrypto rsa crate.
+rsa = ["dep:rsa", "dep:sha2"]
+full = ["ureq", "rsa"]
+
+[dependencies]
+ureq = { version = "2.10", optional = true, default-features = false, features = ["tls"] }
+rsa = { version = "0.9", optional = true, default-features = false, features = ["std", "pem", "getrandom"] }
+sha2 = { version = "0.10", optional = true, default-features = false, features = ["oid"] }
+
+[[example]]
+name = "agent"
+required-features = ["full"]
+
+[[test]]
+name = "sandbox_e2e"
+required-features = ["full"]
+
+[package.metadata.docs.rs]
+all-features = true
