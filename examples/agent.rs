@@ -53,7 +53,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         &mut session,
         &model,
         AgentOptions {
-            prompt: "Select Samuel Okafor and summarize his active problems and latest HbA1c.".into(),
+            prompt: "Select Samuel Okafor (born 1948-11-19) and summarize his active problems and latest HbA1c.".into(),
             data_policy: DataPolicy::Synthetic, // sandbox hosts only; real patient data needs DataPolicy::Baa
             ..Default::default()
         },

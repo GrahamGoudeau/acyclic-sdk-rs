@@ -56,7 +56,7 @@ println!("{found}"); // {"items":[{"id":"e364...","name":"Samuel Okafor",...}],"
 // ...or let a model drive them.
 let model = OpenAiCompatible::new("https://openrouter.ai/api/v1", &std::env::var("OPENROUTER_API_KEY")?, "deepseek/deepseek-v4.1-flash-1017", UreqTransport::default());
 let out = run_agent(&mut session, &model, AgentOptions {
-    prompt: "Select Samuel Okafor and summarize his active problems and latest HbA1c.".into(),
+    prompt: "Select Samuel Okafor (born 1948-11-19) and summarize his active problems and latest HbA1c.".into(),
     data_policy: DataPolicy::Synthetic, // sandbox hosts only; real patient data needs DataPolicy::Baa
     ..Default::default()
 })?;
